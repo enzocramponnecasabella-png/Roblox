@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Le Jardin Doré – Restaurant gastronomique</title>
+  <meta name="description" content="Le Jardin Doré, cuisine française de saison au cœur de la ville. Découvrez notre carte et réservez votre table.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header" id="top">
+    <a href="#top" class="logo">Le Jardin <span>Doré</span></a>
+    <button class="burger" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav class="nav">
+      <a href="#apropos">À propos</a>
+      <a href="#carte">La carte</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#avis">Avis</a>
+      <a href="#contact">Contact</a>
+      <a href="#reservation" class="btn btn-small">Réserver</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <p class="eyebrow">Cuisine française de saison</p>
+      <h1>Une table, une histoire,<br>un moment d'exception</h1>
+      <p>Produits locaux, saveurs authentiques et service chaleureux.</p>
+      <a href="#reservation" class="btn">Réserver une table</a>
+      <a href="#carte" class="btn btn-outline">Voir la carte</a>
+    </div>
+  </section>
+
+  <section class="section" id="apropos">
+    <div class="container two-col">
+      <div>
+        <p class="eyebrow">Notre histoire</p>
+        <h2>Le goût du fait maison</h2>
+        <p>Depuis 2009, le chef Antoine Moreau compose une cuisine généreuse et raffinée, inspirée par les saisons et les producteurs de la région.</p>
+        <p>Dans un décor chaleureux ouvert sur un jardin intérieur, nous vous accueillons pour un déjeuner entre amis, un dîner romantique ou une grande occasion.</p>
+        <ul class="stats">
+          <li><strong>15</strong> ans d'expérience</li>
+          <li><strong>100%</strong> fait maison</li>
+          <li><strong>12</strong> producteurs locaux</li>
+        </ul>
+      </div>
+      <div class="img-card img-about" role="img" aria-label="Salle du restaurant"></div>
+    </div>
+  </section>
+
+  <section class="section alt" id="carte">
+    <div class="container">
+      <p class="eyebrow center">Menu</p>
+      <h2 class="center">La carte</h2>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="entrees">Entrées</button>
+        <button class="tab" data-tab="plats">Plats</button>
+        <button class="tab" data-tab="desserts">Desserts</button>
+        <button class="tab" data-tab="boissons">Boissons</button>
+      </div>
+
+      <div class="menu active" id="entrees">
+        <div class="dish"><div><h3>Velouté de potimarron</h3><p>Crème de châtaigne, noisettes torréfiées</p></div><span>12 €</span></div>
+        <div class="dish"><div><h3>Foie gras maison</h3><p>Chutney de figues, brioche toastée</p></div><span>18 €</span></div>
+        <div class="dish"><div><h3>Salade de chèvre chaud</h3><p>Miel de châtaignier, noix, mesclun</p></div><span>13 €</span></div>
+        <div class="dish"><div><h3>Tartare de saumon</h3><p>Avocat, citron vert, aneth</p></div><span>15 €</span></div>
+      </div>
+      <div class="menu" id="plats">
+        <div class="dish"><div><h3>Magret de canard rôti</h3><p>Sauce au miel et épices, purée de patate douce</p></div><span>26 €</span></div>
+        <div class="dish"><div><h3>Filet de bar</h3><p>Risotto crémeux aux herbes, beurre blanc</p></div><span>27 €</span></div>
+        <div class="dish"><div><h3>Risotto aux cèpes <em>(végétarien)</em></h3><p>Parmesan 24 mois, huile de truffe</p></div><span>22 €</span></div>
+        <div class="dish"><div><h3>Entrecôte de bœuf</h3><p>Frites maison, sauce au poivre</p></div><span>29 €</span></div>
+      </div>
+      <div class="menu" id="desserts">
+        <div class="dish"><div><h3>Fondant au chocolat</h3><p>Cœur coulant, glace vanille bourbon</p></div><span>10 €</span></div>
+        <div class="dish"><div><h3>Tarte Tatin</h3><p>Crème fraîche d'Isigny</p></div><span>9 €</span></div>
+        <div class="dish"><div><h3>Crème brûlée</h3><p>À la vanille de Madagascar</p></div><span>8 €</span></div>
+        <div class="dish"><div><h3>Assiette de fromages</h3><p>Sélection de nos fromagers</p></div><span>11 €</span></div>
+      </div>
+      <div class="menu" id="boissons">
+        <div class="dish"><div><h3>Vins au verre</h3><p>Rouge, blanc, rosé – sélection du sommelier</p></div><span>6 – 9 €</span></div>
+        <div class="dish"><div><h3>Cocktail maison</h3><p>Demandez la création du moment</p></div><span>11 €</span></div>
+        <div class="dish"><div><h3>Limonade artisanale</h3><p>Citron, menthe fraîche</p></div><span>5 €</span></div>
+        <div class="dish"><div><h3>Café / Thé</h3><p>Café de torréfacteur local</p></div><span>3 €</span></div>
+      </div>
+
+      <div class="formule">
+        <h3>Formule déjeuner</h3>
+        <p>Entrée + plat ou plat + dessert <strong>24 €</strong> · Entrée + plat + dessert <strong>29 €</strong></p>
+        <small>Du mardi au vendredi, midi uniquement.</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="galerie">
+    <div class="container">
+      <p class="eyebrow center">Ambiance</p>
+      <h2 class="center">Galerie</h2>
+      <div class="gallery">
+        <div class="g g1"></div><div class="g g2"></div><div class="g g3"></div>
+        <div class="g g4"></div><div class="g g5"></div><div class="g g6"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="avis">
+    <div class="container">
+      <p class="eyebrow center">Témoignages</p>
+      <h2 class="center">Ils nous ont fait confiance</h2>
+      <div class="reviews">
+        <blockquote>« Un accueil formidable et une cuisine d'une finesse rare. Le magret est à tomber. »<cite>— Camille D. ★★★★★</cite></blockquote>
+        <blockquote>« Le cadre est magnifique, surtout en terrasse. Service impeccable. »<cite>— Julien R. ★★★★★</cite></blockquote>
+        <blockquote>« Parfait pour notre anniversaire de mariage. Nous reviendrons ! »<cite>— Sophie & Marc ★★★★★</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reserve" id="reservation">
+    <div class="container narrow">
+      <p class="eyebrow center">Réservation</p>
+      <h2 class="center">Réservez votre table</h2>
+      <form id="resa-form" novalidate>
+        <div class="row">
+          <label>Nom complet<input type="text" name="nom" required autocomplete="name"></label>
+          <label>Téléphone<input type="tel" name="tel" required autocomplete="tel"></label>
+        </div>
+        <label>E-mail<input type="email" name="email" required autocomplete="email"></label>
+        <div class="row">
+          <label>Date<input type="date" name="date" required></label>
+          <label>Heure
+            <select name="heure" required>
+              <option value="">Choisir…</option>
+              <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
+              <option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option>
+            </select>
+          </label>
+          <label>Personnes<input type="number" name="personnes" min="1" max="12" value="2" required></label>
+        </div>
+        <label>Remarques (allergies, occasion…)<textarea name="msg" rows="3"></textarea></label>
+        <button type="submit" class="btn">Confirmer la réservation</button>
+        <p class="form-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container two-col">
+      <div>
+        <p class="eyebrow">Nous trouver</p>
+        <h2>Contact &amp; horaires</h2>
+        <p>📍 12 rue des Tilleuls, 75000 Paris<br>📞 01 23 45 67 89<br>✉️ contact@lejardindore.fr</p>
+        <table class="hours">
+          <tr><td>Lundi</td><td>Fermé</td></tr>
+          <tr><td>Mardi – Vendredi</td><td>12h–14h30 · 19h–22h30</td></tr>
+          <tr><td>Samedi</td><td>12h–15h · 19h–23h</td></tr>
+          <tr><td>Dimanche</td><td>12h–15h</td></tr>
+        </table>
+      </div>
+      <iframe title="Plan d'accès" loading="lazy" class="map"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=2.30%2C48.85%2C2.36%2C48.87&amp;layer=mapnik"></iframe>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Le Jardin Doré · Tous droits réservés</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

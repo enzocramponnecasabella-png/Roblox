@@ -1,0 +1,274 @@
+<title>Le Jardin Doré</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Concept : bistro de nuit, vert bouteille et laiton, carte lue comme un menu imprimé */
+:root{
+  --bg:#f3f6f1; --surface:#ffffff; --fg:#17261e; --muted:#5b6b61; --line:#cfd9d0;
+  --accent:#8a6a1f; --accent-fg:#ffffff; --hero:#12241b; --hero-fg:#f1ede0; --hero-accent:#d4ad52;
+  --display:'Fraunces',Georgia,serif; --body:'Figtree',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1b15; --surface:#16271e; --fg:#ece8da; --muted:#9fb0a4; --line:#2a3f33;
+  --accent:#d4ad52; --accent-fg:#14210f; --hero:#0a130e; --hero-fg:#f1ede0; --hero-accent:#d4ad52; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1b15; --surface:#16271e; --fg:#ece8da; --muted:#9fb0a4; --line:#2a3f33;
+  --accent:#d4ad52; --accent-fg:#14210f; --hero:#0a130e; --hero-fg:#f1ede0; --hero-accent:#d4ad52; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.65;font-size:16px}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0 0 .9em}
+.wrap{max-width:1040px;margin-inline:auto;padding-inline:20px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--hero);color:var(--hero-fg)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;padding-block:12px}
+.logo{font-family:var(--display);font-weight:800;font-size:1.3rem;text-decoration:none}
+.logo b{color:var(--hero-accent)}
+nav{display:flex;gap:8px 20px;flex-wrap:wrap;font-size:.92rem}
+nav a{text-decoration:none;opacity:.85}
+nav a:hover{opacity:1;color:var(--hero-accent)}
+
+.btn{display:inline-block;background:var(--accent);color:var(--accent-fg);border:2px solid var(--accent);padding:11px 26px;border-radius:4px;font:700 1rem var(--body);text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+
+.hero{background:var(--hero);color:var(--hero-fg);padding-block:72px 64px;border-bottom:4px double var(--hero-accent)}
+.hero .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--hero-accent);margin-bottom:14px}
+.hero h1{font-size:clamp(2.3rem,6vw,4.2rem);font-weight:800;margin-bottom:18px}
+.hero h1 em{color:var(--hero-accent);font-weight:400}
+.hero p.lead{max-width:46ch;opacity:.9}
+.hero .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.hero .btn{--accent:var(--hero-accent);--accent-fg:#14210f}
+.card-today{border:1px solid var(--hero-accent);padding:24px;border-radius:4px;background:rgba(255,255,255,.04)}
+.card-today h2{font-size:1.2rem;color:var(--hero-accent);margin-bottom:12px}
+.card-today ul{list-style:none;margin:0;padding:0}
+.card-today li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dotted rgba(241,237,224,.3);font-size:.95rem}
+.card-today li span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+section.s{padding-block:72px}
+section.s + section.s{border-top:1px solid var(--line)}
+.s h2{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:22px;font-weight:600}
+.kick{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.two>*{min-width:0}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px 0 0;padding:0;list-style:none}
+.facts strong{display:block;font:600 2rem var(--display);color:var(--accent)}
+.facts span{font-size:.88rem;color:var(--muted)}
+.plate{aspect-ratio:1;max-width:100%;border-radius:50%;background:radial-gradient(circle at 50% 50%,var(--surface) 0 38%,transparent 39%),radial-gradient(circle,var(--accent) 0 40%,var(--line) 41% 100%);display:grid;place-items:center;text-align:center;font:italic 400 1.1rem var(--display);color:var(--fg);padding:20%}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:26px}
+.tab{font:500 .95rem var(--body);background:transparent;color:var(--fg);border:1px solid var(--line);padding:8px 18px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.menu{max-width:760px}
+.dish{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:16px 0}
+.dish h3{font-size:1.15rem;font-weight:600}
+.dish .lead-dots{border-bottom:1px dotted var(--muted);align-self:end;margin-bottom:6px;order:0}
+.dish .price{font:600 1.05rem var(--display);font-variant-numeric:tabular-nums;color:var(--accent)}
+.dish p{grid-column:1/-1;margin:0;color:var(--muted);font-size:.93rem}
+.dish + .dish{border-top:1px solid var(--line)}
+.tag{font:700 .68rem var(--body);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--accent);color:var(--accent);padding:1px 6px;border-radius:3px;margin-left:8px;vertical-align:middle}
+.formule{margin-top:34px;max-width:760px;border:2px solid var(--fg);padding:22px 24px}
+.formule h3{font-size:1.3rem;margin-bottom:6px}
+.formule p{margin:0}
+.formule small{color:var(--muted)}
+
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.room{min-height:170px;border-radius:4px;padding:16px;display:flex;align-items:flex-end;font:italic 600 1.2rem var(--display);color:#f1ede0}
+.r1{background:linear-gradient(160deg,#2e5a3f,#10241a)}
+.r2{background:linear-gradient(160deg,#7a5a1c,#2a1e08)}
+.r3{background:linear-gradient(160deg,#4a2f2a,#1c1110)}
+.r4{background:linear-gradient(160deg,#35564f,#0f2420)}
+.r5{background:linear-gradient(160deg,#6c5b2e,#24200c)}
+.r6{background:linear-gradient(160deg,#2a4236,#0c1a13)}
+
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.reviews>*{min-width:0}
+blockquote{margin:0;background:var(--surface);border:1px solid var(--line);padding:24px;border-radius:4px;font:italic 400 1.05rem/1.55 var(--display)}
+cite{display:block;margin-top:14px;font:700 .85rem var(--body);font-style:normal;color:var(--accent)}
+
+.resa{background:var(--hero);color:var(--hero-fg)}
+.resa .kick{color:var(--hero-accent)}
+.resa form{display:grid;gap:14px;max-width:640px}
+.resa .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.resa label{display:grid;gap:6px;font-size:.88rem}
+.resa input,.resa select,.resa textarea{font:inherit;padding:11px 12px;border-radius:4px;border:1px solid #3a5545;background:#0a130e;color:#f1ede0;width:100%;min-width:0;color-scheme:dark}
+.resa .invalid{border-color:#ff8a78}
+.resa .btn{--accent:var(--hero-accent);--accent-fg:#14210f;justify-self:start}
+.msg{min-height:1.5em;color:var(--hero-accent);margin:0}
+.msg.err{color:#ff9d8d}
+
+table{border-collapse:collapse;width:100%;margin-top:14px}
+td{padding:9px 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
+.addr{font-style:normal;margin-bottom:14px}
+.mapbox{border:1px solid var(--line);background:var(--surface);padding:24px;border-radius:4px}
+footer{padding-block:28px;text-align:center;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line)}
+
+@media(max-width:820px){
+  .hero .wrap,.two,.reviews{grid-template-columns:1fr}
+  .rooms{grid-template-columns:repeat(2,1fr)}
+  section.s{padding-block:52px}
+  .plate{max-width:260px}
+}
+@media(max-width:480px){.facts{grid-template-columns:1fr 1fr 1fr;gap:8px}.facts strong{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="#haut">Le Jardin <b>Doré</b></a>
+  <nav aria-label="Navigation">
+    <a href="#apropos">À propos</a><a href="#carte">La carte</a><a href="#ambiance">Ambiance</a><a href="#avis">Avis</a><a href="#contact">Contact</a><a href="#reservation"><b>Réserver</b></a>
+  </nav>
+</div></header>
+
+<main id="haut">
+<section class="hero"><div class="wrap">
+  <div>
+    <p class="kicker">Cuisine française de saison · depuis 2009</p>
+    <h1>Une table au <em>jardin</em>, toute l'année</h1>
+    <p class="lead">Le chef Antoine Moreau cuisine ce que les producteurs de la région apportent le matin même. Carte courte, assiettes généreuses, service sans chichi.</p>
+    <div class="actions"><a class="btn" href="#reservation">Réserver une table</a><a class="btn ghost" href="#carte">Voir la carte</a></div>
+  </div>
+  <aside class="card-today" aria-label="Ardoise du jour">
+    <h2>L'ardoise du jour</h2>
+    <ul>
+      <li><span>Velouté de potimarron</span><span>12 €</span></li>
+      <li><span>Magret de canard rôti</span><span>26 €</span></li>
+      <li><span>Tarte Tatin</span><span>9 €</span></li>
+      <li><span>Formule midi, 2 plats</span><span>24 €</span></li>
+    </ul>
+  </aside>
+</div></section>
+
+<section class="s" id="apropos"><div class="wrap two">
+  <div>
+    <p class="kick">Notre histoire</p>
+    <h2>Le goût du fait maison</h2>
+    <p>Depuis 2009, nous travaillons en circuit court. Les fonds, les sauces, le pain et les desserts sont préparés sur place, chaque jour.</p>
+    <p>La salle donne sur un jardin intérieur chauffé l'hiver. Elle convient aussi bien à un déjeuner d'affaires qu'à un dîner à deux ou à une table de douze.</p>
+    <ul class="facts">
+      <li><strong>15 ans</strong><span>de cuisine</span></li>
+      <li><strong>12</strong><span>producteurs locaux</span></li>
+      <li><strong>48</strong><span>couverts</span></li>
+    </ul>
+  </div>
+  <div class="plate" role="img" aria-label="Assiette du chef">Assiette du chef, dressée à la minute</div>
+</div></section>
+
+<section class="s" id="carte"><div class="wrap">
+  <p class="kick">Menu</p>
+  <h2>La carte</h2>
+  <div class="tabs" role="tablist" aria-label="Catégories">
+    <button class="tab" role="tab" id="t-entrees" aria-controls="entrees" aria-selected="true">Entrées</button>
+    <button class="tab" role="tab" id="t-plats" aria-controls="plats" aria-selected="false">Plats</button>
+    <button class="tab" role="tab" id="t-desserts" aria-controls="desserts" aria-selected="false">Desserts</button>
+    <button class="tab" role="tab" id="t-boissons" aria-controls="boissons" aria-selected="false">Boissons</button>
+  </div>
+  <div class="menu" id="menu" role="tabpanel" aria-live="polite"></div>
+  <div class="formule">
+    <h3>Formule du midi</h3>
+    <p>Entrée + plat ou plat + dessert <b>24 €</b> · Entrée + plat + dessert <b>29 €</b></p>
+    <small>Du mardi au vendredi, au déjeuner. Prix nets, service compris.</small>
+  </div>
+</div></section>
+
+<section class="s" id="ambiance"><div class="wrap">
+  <p class="kick">Les lieux</p>
+  <h2>Ambiance</h2>
+  <div class="rooms">
+    <div class="room r1">Le jardin</div><div class="room r2">La salle</div><div class="room r3">La cave</div>
+    <div class="room r4">La cuisine ouverte</div><div class="room r5">Le comptoir</div><div class="room r6">Le salon privé</div>
+  </div>
+</div></section>
+
+<section class="s" id="avis"><div class="wrap">
+  <p class="kick">Témoignages</p>
+  <h2>Ils sont revenus</h2>
+  <div class="reviews">
+    <blockquote>Un accueil formidable et une cuisine d'une finesse rare. Le magret est à tomber.<cite>Camille D. · 5/5</cite></blockquote>
+    <blockquote>Le cadre est magnifique, surtout en terrasse. Service impeccable du début à la fin.<cite>Julien R. · 5/5</cite></blockquote>
+    <blockquote>Parfait pour notre anniversaire de mariage. Nous avons déjà réservé pour l'an prochain.<cite>Sophie et Marc · 5/5</cite></blockquote>
+  </div>
+</div></section>
+
+<section class="s resa" id="reservation"><div class="wrap">
+  <p class="kick">Réservation</p>
+  <h2>Réservez votre table</h2>
+  <form id="resa" novalidate>
+    <div class="row">
+      <label for="nom">Nom complet<input id="nom" type="text" required autocomplete="name"></label>
+      <label for="tel">Téléphone<input id="tel" type="tel" required autocomplete="tel"></label>
+    </div>
+    <label for="email">E-mail<input id="email" type="email" required autocomplete="email"></label>
+    <div class="row">
+      <label for="date">Date<input id="date" type="date" required></label>
+      <label for="heure">Heure<select id="heure" required>
+        <option value="">Choisir</option>
+        <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
+        <option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option>
+      </select></label>
+      <label for="pers">Personnes<input id="pers" type="number" min="1" max="12" value="2" required></label>
+    </div>
+    <label for="note">Allergies, occasion, remarques<textarea id="note" rows="3"></textarea></label>
+    <button class="btn" type="submit">Envoyer la demande</button>
+    <p class="msg" id="msg" role="status" aria-live="polite"></p>
+  </form>
+</div></section>
+
+<section class="s" id="contact"><div class="wrap two">
+  <div>
+    <p class="kick">Nous trouver</p>
+    <h2>Contact et horaires</h2>
+    <address class="addr">12 rue des Tilleuls, 75000 Paris<br>Téléphone : 01 23 45 67 89<br>E-mail : contact@lejardindore.fr</address>
+    <table>
+      <tr><td>Lundi</td><td>Fermé</td></tr>
+      <tr><td>Mardi à vendredi</td><td>12h–14h30 · 19h–22h30</td></tr>
+      <tr><td>Samedi</td><td>12h–15h · 19h–23h</td></tr>
+      <tr><td>Dimanche</td><td>12h–15h</td></tr>
+    </table>
+  </div>
+  <div class="mapbox">
+    <h3>Accès</h3>
+    <p>Métro ligne 1, à 4 minutes à pied. Parking public à 100 m.</p>
+    <a class="btn" href="https://www.openstreetmap.org/search?query=12%20rue%20des%20Tilleuls%20Paris" target="_blank" rel="noopener">Ouvrir le plan</a>
+  </div>
+</div></section>
+</main>
+<footer>© <span id="y"></span> Le Jardin Doré. Site de démonstration, contenus fictifs.</footer>
+
+<script>
+const MENU={
+ entrees:[["Velouté de potimarron","Crème de châtaigne, noisettes torréfiées","12 €"],["Foie gras maison","Chutney de figues, brioche toastée","18 €"],["Chèvre chaud","Miel de châtaignier, noix, mesclun","13 €"],["Tartare de saumon","Avocat, citron vert, aneth","15 €"]],
+ plats:[["Magret de canard rôti","Sauce miel et épices, purée de patate douce","26 €"],["Filet de bar","Risotto crémeux aux herbes, beurre blanc","27 €"],["Risotto aux cèpes","Parmesan 24 mois, huile de truffe","22 €","Végétarien"],["Entrecôte de bœuf","Frites maison, sauce au poivre","29 €"]],
+ desserts:[["Fondant au chocolat","Cœur coulant, glace vanille bourbon","10 €"],["Tarte Tatin","Crème fraîche d'Isigny","9 €"],["Crème brûlée","Vanille de Madagascar","8 €"],["Assiette de fromages","Sélection de notre fromager","11 €"]],
+ boissons:[["Vins au verre","Rouge, blanc, rosé, choix du sommelier","6 à 9 €"],["Cocktail maison","La création du moment","11 €"],["Limonade artisanale","Citron, menthe fraîche","5 €"],["Café ou thé","Torréfacteur local","3 €"]]
+};
+const menu=document.getElementById('menu');
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function show(k){
+  menu.setAttribute('aria-labelledby','t-'+k);
+  menu.innerHTML=MENU[k].map(d=>`<div class="dish"><h3>${esc(d[0])}${d[3]?`<span class="tag">${esc(d[3])}</span>`:''}</h3><span class="price">${esc(d[2])}</span><p>${esc(d[1])}</p></div>`).join('');
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.id==='t-'+k));
+}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>show(t.id.slice(2))));
+show('entrees');
+
+const f=document.getElementById('resa'),msg=document.getElementById('msg'),date=document.getElementById('date');
+date.min=new Date().toISOString().split('T')[0];
+f.addEventListener('submit',e=>{
+  e.preventDefault();
+  let ok=true;
+  f.querySelectorAll('[required]').forEach(el=>{const v=el.checkValidity()&&el.value.trim()!=='';el.classList.toggle('invalid',!v);if(!v)ok=false});
+  msg.classList.toggle('err',!ok);
+  if(!ok){msg.textContent='Complétez les champs entourés en rouge.';return}
+  const d=new Date(date.value+'T12:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  msg.textContent=`Demande enregistrée pour ${f.pers.value} personne(s), ${d} à ${f.heure.value}. Version de démonstration : aucun message n'est envoyé au restaurant.`;
+  f.reset();f.pers.value=2;
+});
+document.getElementById('y').textContent=new Date().getFullYear();
+</script>

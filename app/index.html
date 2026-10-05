@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f7a5c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Routine">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Routine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Concept : carnet de poche, une colonne, pouce-friendly, barre d'onglets en bas */
+:root{
+  --bg:#f4f4ef; --card:#ffffff; --fg:#1c2320; --muted:#68726c; --line:#dfe2da;
+  --accent:#1f7a5c; --accent-fg:#ffffff; --warn:#c2512c; --soft:#e3f0ea;
+  --display:'Bricolage Grotesque',system-ui,sans-serif; --body:'Instrument Sans',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#101614; --card:#18211e; --fg:#e8ede9; --muted:#95a39b; --line:#2a3631;
+  --accent:#4cc79c; --accent-fg:#06241a; --warn:#ff9168; --soft:#1b2e27; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101614; --card:#18211e; --fg:#e8ede9; --muted:#95a39b; --line:#2a3631;
+  --accent:#4cc79c; --accent-fg:#06241a; --warn:#ff9168; --soft:#1b2e27; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 var(--body);padding-inline:16px;padding-block:20px 96px}
+.app{max-width:520px;margin-inline:auto}
+h1,h2{font-family:var(--display);margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:18px}
+.head h1{font-size:1.8rem;text-transform:capitalize}
+.head small{color:var(--muted);display:block}
+.ring{--p:0;width:58px;height:58px;border-radius:50%;flex:none;display:grid;place-items:center;font:700 .85rem var(--display);font-variant-numeric:tabular-nums;
+  background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--line) 0)}
+.ring span{width:46px;height:46px;border-radius:50%;background:var(--bg);display:grid;place-items:center}
+.add{display:flex;gap:8px;margin-bottom:18px}
+.add input{flex:1;min-width:0;font:inherit;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+.add button{background:var(--accent);color:var(--accent-fg);border:0;border-radius:10px;padding:0 18px;font-weight:600}
+.list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.item .txt{flex:1;min-width:0;overflow-wrap:anywhere;text-align:left;background:none;border:0;padding:6px 0}
+.chk{width:28px;height:28px;border-radius:50%;border:2px solid var(--muted);background:none;flex:none;display:grid;place-items:center;color:var(--accent-fg);font-weight:700}
+.done .chk{background:var(--accent);border-color:var(--accent)}
+.done .txt{color:var(--muted);text-decoration:line-through}
+.del{background:none;border:0;color:var(--muted);font-size:1.3rem;padding:4px 8px;border-radius:8px}
+.streak{font:600 .8rem var(--body);color:var(--accent);background:var(--soft);padding:2px 9px;border-radius:99px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.week{display:flex;gap:4px;margin-top:6px}
+.week i{width:10px;height:10px;border-radius:3px;background:var(--line)}
+.week i.on{background:var(--accent)}
+.hab{flex-direction:column;align-items:stretch;gap:2px}
+.hab .row{display:flex;align-items:center;gap:12px}
+.empty{color:var(--muted);text-align:center;padding:28px 12px;border:1px dashed var(--line);border-radius:12px}
+.sec{font:600 .78rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.clear{background:none;border:0;color:var(--warn);padding:8px 0;font-size:.9rem}
+nav{position:fixed;inset:auto 0 0 0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;gap:8px;padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;max-width:240px;border:0;background:none;padding:10px;border-radius:10px;font-weight:600;color:var(--muted)}
+nav button[aria-selected="true"]{background:var(--soft);color:var(--accent)}
+</style>
+</head>
+<body>
+
+
+<div class="app">
+  <div class="head">
+    <div><small id="sub"></small><h1 id="date"></h1></div>
+    <div class="ring" id="ring" role="img"><span id="pct">0%</span></div>
+  </div>
+  <section id="v-tasks">
+    <form class="add" id="f-task"><input id="in-task" placeholder="Nouvelle tâche" aria-label="Nouvelle tâche" maxlength="120"><button>Ajouter</button></form>
+    <ul class="list" id="tasks"></ul>
+    <button class="clear" id="clear" hidden>Supprimer les tâches terminées</button>
+  </section>
+  <section id="v-habits" hidden>
+    <form class="add" id="f-hab"><input id="in-hab" placeholder="Nouvelle habitude (ex. boire 2 L d'eau)" aria-label="Nouvelle habitude" maxlength="60"><button>Ajouter</button></form>
+    <ul class="list" id="habits"></ul>
+  </section>
+</div>
+<nav role="tablist" aria-label="Sections">
+  <button role="tab" id="n-tasks" aria-selected="true">Tâches</button>
+  <button role="tab" id="n-habits" aria-selected="false">Habitudes</button>
+</nav>
+
+<script>
+const KEY='routine-v1';
+const today=()=>new Date().toISOString().slice(0,10);
+const dayOff=n=>{const d=new Date();d.setDate(d.getDate()-n);return d.toISOString().slice(0,10)};
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!S)S={tasks:[{id:1,t:'Exemple : appeler le plombier',d:false},{id:2,t:'Exemple : faire les courses',d:false}],habits:[{id:3,t:'Exemple : marcher 20 min',days:[dayOff(1),dayOff(2)]}],n:4};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const streak=h=>{let n=0,i=h.days.includes(today())?0:1;while(h.days.includes(dayOff(i))){n++;i++}return n};
+
+function render(){
+  const dt=new Date();
+  $('date').textContent=dt.toLocaleDateString('fr-FR',{weekday:'long'});
+  $('sub').textContent=dt.toLocaleDateString('fr-FR',{day:'numeric',month:'long'});
+  $('tasks').innerHTML=S.tasks.length?S.tasks.map(k=>`<li class="item ${k.d?'done':''}"><button class="chk" data-t="${k.id}" aria-label="Terminer">${k.d?'✓':''}</button><span class="txt">${esc(k.t)}</span><button class="del" data-dt="${k.id}" aria-label="Supprimer">×</button></li>`).join(''):'<li class="empty">Aucune tâche. Ajoutez la première ci-dessus.</li>';
+  $('habits').innerHTML=S.habits.length?S.habits.map(h=>{const on=h.days.includes(today()),s=streak(h);
+    const w=[6,5,4,3,2,1,0].map(i=>`<i class="${h.days.includes(dayOff(i))?'on':''}"></i>`).join('');
+    return `<li class="item hab ${on?'done':''}"><div class="row"><button class="chk" data-h="${h.id}" aria-label="Fait aujourd'hui">${on?'✓':''}</button><span class="txt">${esc(h.t)}</span><span class="streak">${s} j</span><button class="del" data-dh="${h.id}" aria-label="Supprimer">×</button></div><div class="week" title="7 derniers jours">${w}</div></li>`}).join(''):'<li class="empty">Aucune habitude. Choisissez-en une petite, à faire chaque jour.</li>';
+  const total=S.tasks.length+S.habits.length;
+  const done=S.tasks.filter(k=>k.d).length+S.habits.filter(h=>h.days.includes(today())).length;
+  const p=total?Math.round(done/total*100):0;
+  $('ring').style.setProperty('--p',p);$('pct').textContent=p+'%';$('ring').setAttribute('aria-label',p+' % accompli aujourd\'hui');
+  $('clear').hidden=!S.tasks.some(k=>k.d);
+  save();
+}
+$('f-task').addEventListener('submit',e=>{e.preventDefault();const v=$('in-task').value.trim();if(!v)return;S.tasks.unshift({id:S.n++,t:v,d:false});$('in-task').value='';render()});
+$('f-hab').addEventListener('submit',e=>{e.preventDefault();const v=$('in-hab').value.trim();if(!v)return;S.habits.push({id:S.n++,t:v,days:[]});$('in-hab').value='';render()});
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  const d=b.dataset;
+  if(d.t){const k=S.tasks.find(x=>x.id==d.t);k.d=!k.d;render()}
+  else if(d.dt){S.tasks=S.tasks.filter(x=>x.id!=d.dt);render()}
+  else if(d.h){const h=S.habits.find(x=>x.id==d.h),i=h.days.indexOf(today());i<0?h.days.push(today()):h.days.splice(i,1);render()}
+  else if(d.dh){S.habits=S.habits.filter(x=>x.id!=d.dh);render()}
+});
+$('clear').addEventListener('click',()=>{S.tasks=S.tasks.filter(k=>!k.d);render()});
+function tab(k){['tasks','habits'].forEach(x=>{$('v-'+x).hidden=x!==k;$('n-'+x).setAttribute('aria-selected',x===k)})}
+$('n-tasks').onclick=()=>tab('tasks');$('n-habits').onclick=()=>tab('habits');
+render();
+</script>
+<script>
+if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+</script>
+</body>
+</html>
