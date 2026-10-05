@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f7a5c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Routine">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Routine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,6 +62,9 @@ nav{position:fixed;inset:auto 0 0 0;background:var(--card);border-top:1px solid 
 nav button{flex:1;max-width:240px;border:0;background:none;padding:10px;border-radius:10px;font-weight:600;color:var(--muted)}
 nav button[aria-selected="true"]{background:var(--soft);color:var(--accent)}
 </style>
+</head>
+<body>
+
 
 <div class="app">
   <div class="head">
@@ -113,3 +128,8 @@ function tab(k){['tasks','habits'].forEach(x=>{$('v-'+x).hidden=x!==k;$('n-'+x).
 $('n-tasks').onclick=()=>tab('tasks');$('n-habits').onclick=()=>tab('habits');
 render();
 </script>
+<script>
+if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+</script>
+</body>
+</html>
